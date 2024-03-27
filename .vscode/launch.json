@@ -1,0 +1,49 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Flutter: Chrome - debug",
+			"type": "dart",
+			"request": "launch",
+			"flutterMode": "debug",
+			"deviceId": "chrome",
+			// "toolArgs": [
+			// 	"--web-browser-flag",
+			// 	"\"--disable-web-security\""
+			// ],
+			"showMemoryUsage": true
+		},
+		{
+			"name": "Flutter: Edge - debug",
+			"type": "dart",
+			"request": "launch",
+			"flutterMode": "debug",
+			"deviceId": "edge",
+			"showMemoryUsage": true
+		},
+		{
+			"name": "Flutter: Infinix",
+			"type": "dart",
+			"request": "launch",
+			"flutterMode": "debug",
+			"deviceId": "061162513O006826",
+			"showMemoryUsage": true
+		},
+		{
+			"name": "Flutter: Xperia",
+			"type": "dart",
+			"request": "launch",
+			"flutterMode": "release",
+			"deviceId": "BH9078FJ5U",
+			"showMemoryUsage": true
+		},
+		{
+			"name": "Flutter: Android wireless",
+			"type": "dart",
+			"request": "launch",
+			"flutterMode": "debug",
+			"deviceId": "192.168.10.6:5555",
+			"showMemoryUsage": true
+		}
+	]
+}
