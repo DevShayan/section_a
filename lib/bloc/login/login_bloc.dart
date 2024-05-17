@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:section_a/bloc/login/login_event.dart';
 import 'package:section_a/bloc/login/login_state.dart';
 import 'package:section_a/database/google_api.dart';
+import 'package:section_a/pojos/curr_user.dart';
 import 'package:section_a/routes/routes.dart';
 
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
@@ -17,21 +18,24 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
   }
 
   void login(BuildContext context) async {
-    toggleLogin();
+    toggleLoginBtn();
     add(LoginScreenEvent());
 
     GoogleAPI.login(state.misInput)
-    .then((uid) {
+    .then((success) {
 
-      toggleLogin();
+      toggleLoginBtn();
 
-      if (uid == 0) {
+      if (!success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text("MIS not found!"),
-          duration: const Duration(days: 1),
+          duration: const Duration(seconds: 5),
           action: SnackBarAction(label: "dismiss", onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar()),
         ));
-      } else {
+      }
+      else {
+        CurrUser.misId = int.parse(state.misInput);
+
         Navigator.pushReplacementNamed(context, AppRoutes.home);
       }
 
@@ -39,7 +43,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
 
   }
 
-  void toggleLogin() {
+  void toggleLoginBtn() {
     state.isLoading = !state.isLoading;
     state.isLoginDisabled = !state.isLoginDisabled;
     add(LoginScreenEvent());

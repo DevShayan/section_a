@@ -1,3 +1,4 @@
 class AppDimens {
-  static const double value = 0;
+  static double cardWidth = 140;
+  static double cardRadius = 20;
 }
