@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:section_a/constants/functions.dart';
 import 'package:section_a/pojos/assignments.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
