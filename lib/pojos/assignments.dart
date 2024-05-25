@@ -4,9 +4,13 @@ class Assignments {
 
 class Assignment {
   String title;
-  String? body;
+  String body;
   DateTime dueDate;
   DateTime assignedDate;
 
-  Assignment(this.title, this.body, this.dueDate, this.assignedDate);
+  Assignment(this.title, this.body, this.dueDate, this.assignedDate) {
+    if (body == "") {
+      body = "-";
+    }
+  }
 }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:section_a/bloc/home/home_bloc.dart';
 import 'package:section_a/bloc/home/home_state.dart';
+import 'package:section_a/constants/colors.dart';
 import 'package:section_a/constants/dimens.dart';
 import 'package:section_a/constants/functions.dart';
 import 'package:section_a/pojos/assignments.dart';
 import 'package:section_a/pojos/curr_user.dart';
 import 'package:section_a/routes/routes.dart';
+import 'package:section_a/screens/assignment.dart';
 import 'package:section_a/ui_widgets/c_card.dart';
+import 'package:section_a/ui_widgets/c_skeleton.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,7 +28,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: AppDimens.horizScreenSpacing),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -36,15 +40,32 @@ class HomeScreen extends StatelessWidget {
                 child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
                   builder: (context, state) {
                     if (!state.assignmentsFetched) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const AssignCardShimmer();
                     }
                     return ListView.builder(
                       itemCount: Assignments.assignmentsList.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => MenuCard(
+                        cardColor: AppColors.assCardColor,
+                        textColor: Colors.white,
                         cardTitle: Assignments.assignmentsList[index].title,
-                        width: AppDimens.cardWidth,
-                        onTap: () {},
+                        width: AppDimens.cardWidth-20,
+                        onTap: () {
+                          showMaterialModalBottomSheet(
+                            expand: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft:  Radius.circular(AppDimens.cardRadius),
+                                topRight:  Radius.circular(AppDimens.cardRadius),
+                              )
+                            ),
+                            context: context,
+                            builder: (context) => AssignmentScreen(
+                              index: index
+                            ),
+                          );
+                        },
+                        
                       ),
                     );
                   },
@@ -60,11 +81,14 @@ class HomeScreen extends StatelessWidget {
                   GradesCard(
                     width: AppDimens.cardWidth,
                   ),
-                  MenuCard(
-                    cardTitle: "Notes",
-                    width: AppDimens.cardWidth,
-                  ),
                 ],
+              ),
+
+              const HomeHeading(title: "Other"),
+              MenuCard(
+                cardTitle: "Schedule",
+                width: AppDimens.cardWidth,
+                onTap: () => Navigator.pushNamed(context, AppRoutes.schedule),
               ),
             ],
           ),
@@ -88,7 +112,7 @@ class HomeHeading extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10, 40, 0, 10),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: AppDimens.heading3Size),
       ),
     );
   }
@@ -104,43 +128,22 @@ class AttnCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GenericCard(
-      color: Colors.purple,
-      width: width,
-      onTap: () {
-        if (BlocProvider.of<HomeScreenBloc>(context).state.attnP != null) {
-          Navigator.pushNamed(context, AppRoutes.totalAttn);
+    return BlocBuilder<HomeScreenBloc, HomeScreenState>(
+      builder: (context, state) {
+        if (state.attnP == null) {
+          return const MenuCardShimmer();
         }
-      },
-      stackChildren: <Widget>[
-        const Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            "Attendance",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-            builder: (context, state) {
-              if (state.attnP == null) {
-                return const CircularProgressIndicator();
-              }
-              return Text(
-                "${state.attnP!.toStringAsFixed(2)}%",
-                style: const TextStyle(
-                  fontSize: 22,
-                color: Colors.white,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+        return MenuCard(
+          cardColor: AppColors.attn,
+          width: width,
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.totalAttn);
+          },
+          cardTitle: "Attendance",
+          cardValue: "${state.attnP!.toStringAsFixed(2)}%",
+          textColor: Colors.white,
+        );
+      }
     );
   }
 }
@@ -155,43 +158,22 @@ class GradesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GenericCard(
-      color: Colors.deepOrange,
-      width: width,
-      onTap: () {
-        if (BlocProvider.of<HomeScreenBloc>(context).state.cgpa != null) {
-          Navigator.pushNamed(context, AppRoutes.totalGrades);
+    return BlocBuilder<HomeScreenBloc, HomeScreenState>(
+      builder: (context, state) {
+        if (state.cgpa == null) {
+          return const MenuCardShimmer();
         }
-      },
-      stackChildren: <Widget>[
-        const Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            "Grades",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-            builder: (context, state) {
-              if (state.cgpa == null) {
-                return const CircularProgressIndicator();
-              }
-              return Text(
-                "${state.cgpa!.toStringAsFixed(2)}%",
-                style: const TextStyle(
-                  fontSize: 22,
-                  color: Colors.white,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+        return MenuCard(
+          cardColor: AppColors.grades,
+          width: width,
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.totalGrades);
+          },
+          cardTitle: "Grades",
+          cardValue: "${state.cgpa!.toStringAsFixed(2)}%",
+          textColor: Colors.white,
+        );
+      }
     );
   }
 }
@@ -199,19 +181,25 @@ class GradesCard extends StatelessWidget {
 class MenuCard extends StatelessWidget {
   final String cardTitle;
   final String? cardValue;
+  final Color? textColor;
+  final Color? cardColor;
   final double width;
   final void Function()? onTap;
 
-  const MenuCard(
-      {super.key,
-      required this.cardTitle,
-      this.cardValue,
-      required this.width,
-      this.onTap});
+  const MenuCard({
+    super.key,
+    required this.cardTitle,
+    this.cardValue,
+    required this.width,
+    this.onTap,
+    this.textColor,
+    this.cardColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GenericCard(
+      color: cardColor,
       width: width,
       onTap: onTap,
       stackChildren: <Widget>[
@@ -219,8 +207,9 @@ class MenuCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           child: Text(
             cardTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
+              color: textColor,
             ),
           ),
         ),
@@ -228,8 +217,9 @@ class MenuCard extends StatelessWidget {
           alignment: Alignment.bottomRight,
           child: Text(
             cardValue ?? "",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 22,
+              color: textColor,
             ),
           ),
         ),
@@ -261,7 +251,7 @@ class GenericCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(AppDimens.cardRadius)),
         child: SizedBox(
           width: width,
-          height: 140,
+          height: AppDimens.cardHeight,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
             child: Stack(

@@ -1,4 +1,5 @@
 {
     "workbench.colorTheme": "Monokai",
-    "editor.multiCursorModifier": "ctrlCmd"
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.wordWrap": "on"
 }
