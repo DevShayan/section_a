@@ -35,12 +35,16 @@ class ScheduleScreen extends StatelessWidget {
                 ),
               ),
 
-              ListView.builder(
-                itemBuilder: (context, index) => Stack(
-                  children: <Widget> [
-                    Text(list[index].time.hour.toString()),
-                  ],
-                )
+              SizedBox(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: list.length,
+                  itemBuilder: (context, index) => Stack(
+                    children: <Widget> [
+                      Text("${list[index].time.hour}:${list[index].time.minute}"),
+                    ],
+                  )
+                ),
               ),
             ],
           ),
