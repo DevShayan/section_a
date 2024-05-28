@@ -2,6 +2,7 @@ class HomeScreenState {
   double? cgpa;
   double? attnP;
   bool assignmentsFetched = false;
+  bool scheduleFetched = false;
 
 
   HomeScreenState();
@@ -11,3 +12,5 @@ class HomeScreenState {
     assignmentsFetched = currState.assignmentsFetched;
   }
 }
+
+class HomeScreenEvent {}

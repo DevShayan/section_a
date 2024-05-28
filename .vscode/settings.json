@@ -1,5 +1,7 @@
 {
     "workbench.colorTheme": "Monokai",
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "IDX.aI.enableInlineCompletion": true,
+    "IDX.aI.enableCodebaseIndexing": true,
 }

@@ -10,3 +10,5 @@ class LoginScreenState {
     isLoginDisabled = currState.isLoginDisabled;
   }
 }
+
+class LoginScreenEvent {}

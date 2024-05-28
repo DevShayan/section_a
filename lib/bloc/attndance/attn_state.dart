@@ -8,3 +8,5 @@ class AttendanceState {
     subjCards = currState.subjCards;
   }
 }
+
+class AttendanceEvent {}

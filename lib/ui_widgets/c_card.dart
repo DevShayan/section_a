@@ -5,16 +5,19 @@ import 'package:section_a/constants/dimens.dart';
 class CCard extends StatelessWidget {
   final Widget child;
   final Color? color;
+  final bool? unElevated;
 
   const CCard({
     super.key,
     required this.child,
     this.color,
+    this.unElevated,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: (unElevated == true) ? 0 : 2,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),

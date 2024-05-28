@@ -4,6 +4,7 @@ import 'package:section_a/bloc/attndance/attn_bloc.dart';
 import 'package:section_a/bloc/grades/grades_bloc.dart';
 import 'package:section_a/bloc/home/home_bloc.dart';
 import 'package:section_a/bloc/login/login_bloc.dart';
+import 'package:section_a/bloc/schedule/sch_bloc.dart';
 import 'package:section_a/screens/assignment.dart';
 import 'package:section_a/screens/schedule.dart';
 import 'package:section_a/screens/sem_grades.dart';
@@ -62,7 +63,10 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => AssignmentScreen(index: routeSettings.arguments as int));
 
       case schedule:
-        return MaterialPageRoute(builder: (context) => ScheduleScreen());
+        return MaterialPageRoute(builder: (context) => BlocProvider<ScheduleBloc>(
+          create: (context) => ScheduleBloc(),
+          child: ScheduleScreen(),
+        ));
 
       default:
         return null;

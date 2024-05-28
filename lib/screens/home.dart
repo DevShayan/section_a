@@ -85,10 +85,17 @@ class HomeScreen extends StatelessWidget {
               ),
 
               const HomeHeading(title: "Other"),
-              MenuCard(
-                cardTitle: "Schedule",
-                width: AppDimens.cardWidth,
-                onTap: () => Navigator.pushNamed(context, AppRoutes.schedule),
+              BlocBuilder<HomeScreenBloc, HomeScreenState>(
+                builder: (context, state) {
+                  if (!state.scheduleFetched) {
+                    return const MenuCardShimmer();
+                  }
+                  return MenuCard(
+                    cardTitle: "Schedule",
+                    width: AppDimens.cardWidth,
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.schedule),
+                  );
+                }
               ),
             ],
           ),

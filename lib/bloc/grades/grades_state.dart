@@ -6,3 +6,5 @@ class GradesState {
     //
   }
 }
+
+class GradesEvent {}

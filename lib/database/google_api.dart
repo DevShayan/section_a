@@ -4,9 +4,10 @@ import 'package:section_a/pojos/assignments.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
 import 'package:section_a/pojos/grades.dart';
+import 'package:section_a/pojos/schedule.dart';
 
 class GoogleAPI {
-  static const String _gradesURL = "https://script.google.com/macros/s/AKfycbzDpe7bXwvrnmf61sC16WXUMC85uSKWXTyQp1YG1Has2XY_Yp8ExB-WmhzUyh_qU4zdlA/exec";
+  static const String _gradesURL = "https://script.google.com/macros/s/AKfycbznEAb0c9aUg0Z_VhUXY8y2b32mZi9v2a3LHerXfPXLqGo0LPGccoWYnzFNXFk_QhZQWQ/exec";
 
   static bool gradesFuncLock = false;
   static bool attnFuncLock = false;
@@ -125,7 +126,26 @@ class GoogleAPI {
     }
 
     return true;
-    
+  }
+
+  static Future<bool> fetchClassSchedule() async {
+    Response response = await get(Uri.parse("$_gradesURL?get_class_schedule=true"));
+
+    dynamic data = await json.decode(response.body);
+
+
+    Schedules.list = [];
+
+    for (dynamic item in data["data"]) {
+      Schedules.list.add(Schedule(
+        item["startTime"],
+        item["endTime"],
+        item["day"],
+        item["subjName"],
+      ));
+    }
+
+    return true;
   }
 
 }
@@ -148,3 +168,4 @@ class GoogleAPI {
 // get_cgpa_of=[uid]
 // get_pos_of=[username]
 // get_assignments=[any]
+// get_class_schedule=[any]
