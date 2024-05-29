@@ -10,6 +10,7 @@ class HomeScreenState {
     cgpa = currState.cgpa;
     attnP = currState.attnP;
     assignmentsFetched = currState.assignmentsFetched;
+    scheduleFetched = currState.scheduleFetched;
   }
 }
 

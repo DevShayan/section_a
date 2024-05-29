@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:section_a/constants/functions.dart';
 import 'package:section_a/pojos/assignments.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
@@ -29,7 +30,7 @@ class GoogleAPI {
   }
 
 
-  static Future<int> fetchTotalAttnInUserAttndance(int uid) async {
+  static Future<bool> fetchTotalAttnInUserAttndance(int uid) async {
     attnFuncLock = true;
     Response response = await get(Uri.parse("$_gradesURL?get_attn_of_user=$uid"));
     dynamic data = await json.decode(response.body);
@@ -48,12 +49,12 @@ class GoogleAPI {
     UserAttendance.updateData();
     attnFuncLock = false;
 
-    return 0;
+    return true;
     
   }
 
 
-  static Future<int> fetchTotalGradesInUserGrades(int uid) async {
+  static Future<bool> fetchTotalGradesInUserGrades(int uid) async {
     gradesFuncLock = true;
 
     Response response = await get(Uri.parse("$_gradesURL?get_grades_of_user=$uid"));
@@ -81,7 +82,7 @@ class GoogleAPI {
     UserGrades.updateData();
     gradesFuncLock = false;
 
-    return 0;
+    return true;
     
   }
 
@@ -138,8 +139,8 @@ class GoogleAPI {
 
     for (dynamic item in data["data"]) {
       Schedules.list.add(Schedule(
-        item["startTime"],
-        item["endTime"],
+        DateTime.parse(item["startTime"]),
+        DateTime.parse(item["endTime"]),
         item["day"],
         item["subjName"],
       ));
