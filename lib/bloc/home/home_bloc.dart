@@ -1,11 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:section_a/bloc/home/home_state.dart';
-import 'package:section_a/constants/functions.dart';
 import 'package:section_a/database/google_api.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
 import 'package:section_a/pojos/grades.dart';
-import 'package:section_a/pojos/schedule.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(HomeScreenState()) {

@@ -38,11 +38,11 @@
 			"showMemoryUsage": true
 		},
 		{
-			"name": "Flutter: Android wireless",
+			"name": "Flutter: localhost",
 			"type": "dart",
 			"request": "launch",
 			"flutterMode": "debug",
-			"deviceId": "192.168.10.6:5555",
+			"deviceId": "localhost:5555",
 			"showMemoryUsage": true
 		}
 	]
