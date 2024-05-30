@@ -15,23 +15,24 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
 
     if ((currHour == 8 && currMin >= 30) || currHour == 9) {
       state.currIndex =  0;
-      state.timeRemaining = Schedules.list[DateTime.now().weekday][1].startTime.difference(changeHourDate(DateTime.now()));
+      state.timeRemaining = Schedules.list[DateTime.now().weekday-1][0].endTime.difference(changeHourDate(DateTime.now()));
     }
     else if (currHour == 10 || (currHour == 11 && currMin < 30)) {
       state.currIndex =  1;
-      state.timeRemaining = Schedules.list[DateTime.now().weekday][2].startTime.difference(changeHourDate(DateTime.now()));
+      state.timeRemaining = Schedules.list[DateTime.now().weekday-1][1].endTime.difference(changeHourDate(DateTime.now()));
     }
     else if ((currHour == 11 && currMin >= 30) || currHour == 12) {
       state.currIndex =  2;
-      state.timeRemaining = Schedules.list[DateTime.now().weekday][3].startTime.difference(changeHourDate(DateTime.now()));
+      state.timeRemaining = Schedules.list[DateTime.now().weekday-1][2].endTime.difference(changeHourDate(DateTime.now()));
     }
     else if (currHour == 1 || (currHour == 2 && currMin < 30)) {
       state.currIndex =  3;
-      state.timeRemaining = Schedules.list[DateTime.now().weekday][4].startTime.difference(changeHourDate(DateTime.now()));
+      state.timeRemaining = Schedules.list[DateTime.now().weekday-1][3].endTime.difference(changeHourDate(DateTime.now()));
     }
     else if ((currHour == 2 && currMin >= 30) || currHour == 3) {
       state.currIndex =  4;
-      state.timeRemaining = Schedules.list[DateTime.now().weekday][5].startTime.difference(changeHourDate(DateTime.now()));
+      state.timeRemaining = Schedules.list[DateTime.now().weekday-1][4].endTime.difference(changeHourDate(DateTime.now()));
+      printLog("debug");
     }
     else {
       state.currIndex =  -1;
@@ -41,7 +42,14 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
 
   String durationToString() {
     int hours = state.timeRemaining.inHours;
-    int minutes = state.timeRemaining.inMinutes;
+    int minutes = state.timeRemaining.inMinutes.remainder(60).toInt();
+
+    if (minutes == 60) {
+      hours++;
+      minutes = 1;
+    } else {
+      minutes++;
+    }
 
     if (hours == 0) {
       return "$minutes mins remaining";
