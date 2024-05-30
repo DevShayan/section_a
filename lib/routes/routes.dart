@@ -65,7 +65,7 @@ class AppRoutes {
       case schedule:
         return MaterialPageRoute(builder: (context) => BlocProvider<ScheduleBloc>(
           create: (context) => ScheduleBloc(),
-          child: ScheduleScreen(),
+          child: const ScheduleScreen(),
         ));
 
       default:

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:section_a/constants/functions.dart';
 import 'package:section_a/pojos/assignments.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
@@ -134,15 +135,95 @@ class GoogleAPI {
     dynamic data = await json.decode(response.body);
 
 
-    Schedules.list = [];
+    Schedules.list = [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+    ];
 
     for (dynamic item in data["data"]) {
-      Schedules.list.add(Schedule(
-        DateTime.parse(item["startTime"]),
-        DateTime.parse(item["endTime"]),
-        item["day"],
-        item["subjName"],
-      ));
+      switch (item["day"]) {
+        case "Monday":
+          Schedules.list[0].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Tuesday":
+          Schedules.list[1].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Wednesday":
+          Schedules.list[2].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Thursday":
+          Schedules.list[3].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Friday":
+          Schedules.list[4].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Saturday":
+          Schedules.list[5].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+        
+        case "Sunday":
+          Schedules.list[6].add(Schedule(
+            DateTime.parse(item["startTime"]).toLocal(),
+            DateTime.parse(item["endTime"]).toLocal(),
+            item["day"],
+            item["subjName"],
+          ));
+          break;
+      }
+    }
+
+    for (List<Schedule> list in Schedules.list) {
+      list.sort((a, b) {
+        DateTime aDate = a.startTime;
+        DateTime bDate = b.startTime;
+
+        return aDate.compareTo(bDate);
+      });
+      
+      if (list.isNotEmpty) {
+        list.add(list.removeAt(0));
+        list.add(list.removeAt(0));
+      }
     }
 
     return true;

@@ -1,5 +1,5 @@
 class Schedules {
-  static List<Schedule> list = [];
+  static List<List<Schedule>> list = [];
 }
 
 

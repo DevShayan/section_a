@@ -38,7 +38,7 @@ class ScheduleScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               ListView.builder(
-                itemCount: Schedules.list.length-1,
+                itemCount: Schedules.list[DateTime.now().weekday-1].length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) => BlocBuilder<ScheduleBloc, ScheduleState>(
                   builder: (context, state) {
@@ -51,7 +51,7 @@ class ScheduleScreen extends StatelessWidget {
                           const EdgeInsets.fromLTRB(14, 3, 14, 2),
                         child: Stack(
                           children: <Widget> [
-                            Text("${Schedules.list[index].startTime.hour}:${Schedules.list[index].startTime.minute.toString().padLeft(2, "0")}"),
+                            Text("${Schedules.list[DateTime.now().weekday-1][index].startTime.hour}:${Schedules.list[DateTime.now().weekday-1][index].startTime.minute.toString().padLeft(2, "0")}"),
                         
                             (index == state.currIndex) ?
                             Align(
@@ -59,10 +59,10 @@ class ScheduleScreen extends StatelessWidget {
                               child: Text(BlocProvider.of<ScheduleBloc>(context).durationToString())
                             ) :
                             const SizedBox(),
-                        
+
                             Align(
                               alignment: Alignment.centerRight,
-                              child: Text(Schedules.list[index].subject),
+                              child: Text(Schedules.list[DateTime.now().weekday-1][index].subject),
                             ),
                           ],
                         ),
