@@ -37,6 +37,8 @@ class ScheduleScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
+              (Schedules.list[DateTime.now().weekday-1].isEmpty) ?
+              const Text("No classes today.") :
               ListView.builder(
                 itemCount: Schedules.list[DateTime.now().weekday-1].length,
                 shrinkWrap: true,

@@ -81,8 +81,6 @@ class DummyAPI {
       subjList = [];
     }
 
-    UserGrades.updateData();
-
     return true;
     
   }
