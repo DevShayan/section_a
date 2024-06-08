@@ -9,9 +9,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<RegisterBloc>(
-      create: (_) => RegisterBloc(),
-      child: Scaffold(
+    return Scaffold(
         body: Padding(
           padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
           child: SingleChildScrollView(
@@ -28,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 16),
             
                 const Text(
-                  "LOGIN",
+                  "REGISTER",
                   style: TextStyle(
                     fontSize: 20
                   ),
@@ -80,7 +78,6 @@ class RegisterScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

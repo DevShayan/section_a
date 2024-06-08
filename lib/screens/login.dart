@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:section_a/bloc/login/login_bloc.dart';
 import 'package:section_a/bloc/login/login_state.dart';
+import 'package:section_a/bloc/register/reg_bloc.dart';
 import 'package:section_a/constants/colors.dart';
 import 'package:section_a/screens/register.dart';
 
@@ -82,7 +83,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                   onPressed: () => Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                    MaterialPageRoute(builder: (context) => BlocProvider<RegisterBloc>(
+                      create: (context) => RegisterBloc(),
+                      child: RegisterScreen(),
+                    )),
                   ),
                   child: const Text(
                     "Register Instead?",
