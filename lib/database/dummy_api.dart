@@ -69,7 +69,7 @@ class DummyAPI {
         ));
       }
       UserGrades.gradesList.add(SemGrade(
-        "Semester $x",
+        "Semester ${x+1}",
         subjList,
         2.5 + random.nextDouble() * (4.0 - 2.5),
         40.0 + random.nextDouble() * (99.9 - 40.0),

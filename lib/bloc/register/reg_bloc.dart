@@ -20,7 +20,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
   
   void onRegisterPress(BuildContext context) {
-    printLog("OK");
     DummyAPI.fetchTotalAttnInUserAttndance();
     DummyAPI.fetchTotalGradesInUserGrades();
 

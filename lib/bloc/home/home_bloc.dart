@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:section_a/bloc/home/home_state.dart';
+import 'package:section_a/constants/functions.dart';
 import 'package:section_a/database/google_api.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/curr_user.dart';
@@ -22,8 +23,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     });
 
 
-    if (!GoogleAPI.attnFuncLock && UserAttendance.subjAttnList.isEmpty) {
-
+    if (!GoogleAPI.attnFuncLock) {
       if (UserAttendance.subjAttnList.isEmpty) {
         GoogleAPI.fetchTotalAttnInUserAttndance(CurrUser.uid)
         .then((value) {
@@ -39,7 +39,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       }
     }
 
-    if (!GoogleAPI.gradesFuncLock && UserGrades.gradesList.isEmpty) {
+    if (!GoogleAPI.gradesFuncLock) {
 
       if (UserGrades.gradesList.isEmpty) {
         GoogleAPI.fetchTotalGradesInUserGrades(CurrUser.uid)
