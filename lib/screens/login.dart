@@ -4,6 +4,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:section_a/bloc/login/login_bloc.dart';
 import 'package:section_a/bloc/login/login_state.dart';
 import 'package:section_a/constants/colors.dart';
+import 'package:section_a/screens/register.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -71,6 +72,24 @@ class LoginScreen extends StatelessWidget {
                       ) ,
                     );
                   },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:  24),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.appAccent,
+                  ),
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                  ),
+                  child: const Text(
+                    "Register Instead?",
+                    style: TextStyle(
+                      fontSize: 16
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -25,6 +25,22 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Hello ${CurrUser.name}"),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: ListTile(
+                  title: const Text("LOGOUT"),
+                  onTap: () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.login,
+                    (route) => false,
+                  ),
+                )
+              ),
+            ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
