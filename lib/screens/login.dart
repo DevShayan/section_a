@@ -12,67 +12,69 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(50, 0, 50, 200),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 50),
-            CircularPercentIndicator(
-              radius: 50,
-              lineWidth: 12,
-              percent: 1,
-              progressColor: AppColors.appAccent,
-            ),
-            const SizedBox(height: 16),
-
-            const Text(
-              "LOGIN",
-              style: TextStyle(
-                fontSize: 20
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              CircularPercentIndicator(
+                radius: 50,
+                lineWidth: 12,
+                percent: 1,
+                progressColor: AppColors.appAccent,
               ),
-            ),
-            const SizedBox(height: 50),
-
-            BlocBuilder<LoginScreenBloc, LoginScreenState>(
-              builder: (context, state) {
-                return TextField(
-                  onChanged: (newText) => BlocProvider.of<LoginScreenBloc>(context).updateInput(newText),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(99))
-                    ),
-                    labelText: " MIS ID",
-                  ),
-                );
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical:  24),
-              child: BlocBuilder<LoginScreenBloc, LoginScreenState>(
+              const SizedBox(height: 16),
+          
+              const Text(
+                "LOGIN",
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+              const SizedBox(height: 50),
+          
+              BlocBuilder<LoginScreenBloc, LoginScreenState>(
                 builder: (context, state) {
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.appAccent,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: state.isLoginDisabled ? null : () => BlocProvider.of<LoginScreenBloc>(context).login(context),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Center(
-                        child: state.isLoading ? const CircularProgressIndicator() : const Text(
-                          "LOGIN",
-                          style: TextStyle(
-                            fontSize: 16
-                          ),
-                        )
+                  return TextField(
+                    onChanged: (newText) => BlocProvider.of<LoginScreenBloc>(context).updateInput(newText),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(99))
                       ),
-                    ) ,
+                      labelText: " MIS ID",
+                    ),
                   );
                 },
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:  24),
+                child: BlocBuilder<LoginScreenBloc, LoginScreenState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.appAccent,
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: state.isLoginDisabled ? null : () => BlocProvider.of<LoginScreenBloc>(context).login(context),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: Center(
+                          child: state.isLoading ? const CircularProgressIndicator() : const Text(
+                            "LOGIN",
+                            style: TextStyle(
+                              fontSize: 16
+                            ),
+                          )
+                        ),
+                      ) ,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
