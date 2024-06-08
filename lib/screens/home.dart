@@ -193,7 +193,7 @@ class GradesCard extends StatelessWidget {
             Navigator.pushNamed(context, AppRoutes.totalGrades);
           },
           cardTitle: "Grades",
-          cardValue: "${state.cgpa!.toStringAsFixed(2)}%",
+          cardValue: state.cgpa!.toStringAsFixed(2),
           textColor: Colors.white,
         );
       }

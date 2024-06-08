@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:section_a/constants/functions.dart';
 import 'package:section_a/pojos/attn.dart';
 import 'package:section_a/pojos/grades.dart';
 
