@@ -23,23 +23,37 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
 
     if (!GoogleAPI.attnFuncLock && UserAttendance.subjAttnList.isEmpty) {
-      GoogleAPI.fetchTotalAttnInUserAttndance(CurrUser.uid)
-      .then((value) {
-        if (value) {
-          state.attnP = UserAttendance.totalPercent;
-          add(HomeScreenEvent());
-        }
-      });
+
+      if (UserAttendance.subjAttnList.isEmpty) {
+        GoogleAPI.fetchTotalAttnInUserAttndance(CurrUser.uid)
+        .then((value) {
+          if (value) {
+            state.attnP = UserAttendance.totalPercent;
+            add(HomeScreenEvent());
+          }
+        });
+      }
+      else {
+        state.attnP = UserAttendance.totalPercent;
+        add(HomeScreenEvent());
+      }
     }
 
     if (!GoogleAPI.gradesFuncLock && UserGrades.gradesList.isEmpty) {
-      GoogleAPI.fetchTotalGradesInUserGrades(CurrUser.uid)
-      .then((bool value) {
-        if (value) {
-          state.cgpa = UserGrades.cgpa;
-          add(HomeScreenEvent());
-        }
-      });
+
+      if (UserGrades.gradesList.isEmpty) {
+        GoogleAPI.fetchTotalGradesInUserGrades(CurrUser.uid)
+        .then((bool value) {
+          if (value) {
+            state.cgpa = UserGrades.cgpa;
+            add(HomeScreenEvent());
+          }
+        });
+      }
+      else {
+        state.cgpa = UserGrades.cgpa;
+        add(HomeScreenEvent());
+      }
     }
 
     GoogleAPI.fetchClassSchedule()
