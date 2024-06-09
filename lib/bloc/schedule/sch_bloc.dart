@@ -13,6 +13,10 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     int currHour = changeHourFormat(DateTime.now().hour);
     int currMin = DateTime.now().minute;
 
+    if (Schedules.list[DateTime.now().weekday-1].isEmpty) {
+      return;
+    }
+
     if ((currHour == 8 && currMin >= 30) || currHour == 9) {
       state.currIndex =  0;
       state.timeRemaining = Schedules.list[DateTime.now().weekday-1][0].endTime.difference(changeHourDate(DateTime.now()));
