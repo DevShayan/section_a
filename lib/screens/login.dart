@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:section_a/bloc/login/login_bloc.dart';
@@ -12,14 +13,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+        padding: const EdgeInsets.symmetric(horizontal:  50),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.15),
               CircularPercentIndicator(
                 radius: 50,
                 lineWidth: 12,
